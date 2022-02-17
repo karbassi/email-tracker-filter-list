@@ -1,0 +1,275 @@
+! Title: Email tracking pixels and read-receipts filter
+! Description: Filters for blocking tracking pixels received in emails to determine
+!              open rates, read-receipts, and other ethically questionable personal data.
+! License: http://creativecommons.org/licenses/by/3.0/
+! Homepage: https://github.com/karbassi/email-tracker-filter-list
+! Forums: https://github.com/karbassi/email-tracker-filter-list/issues
+! Attribution: Original list from UglyEmail https://github.com/OneClickLab/ugly-email-trackers and https://github.com/leavemealone-app/email-trackers
+
+! Common tracking endpoints
+/wf/open^$all
+/track/open.php^$all
+/ut.php^$all
+/trk^$all
+/links.*/oo/^$all
+/o.gif^$image
+
+! Bananatag (https://bananatag.com/)
+bl-1.com^$all
+
+! Yesware (https://yesware.com)
+t.yesware.com^$all
+
+! Postmark (https://postmarkapp.com/)
+pstmrk.it/open^$all
+
+! mailfoogae (http://www.mailfoogae.appsplot.com/)
+mailfoogae.appspot.com^$all
+
+! Hubspot (https://www.hubspot.com/)
+t.signauxtrois.com^$all
+t.sidekickopen77.com^$all
+
+! MixMax (https://mixmax.com)
+track.mixmax.com^$all
+email.mixmax.com^$all
+
+! Polymail https://polymail.io/
+polymail.io/v2/z.^$image
+
+! ContactMonkey (https://contactmonkey.com)
+contactmonkey.com/api/v1/tracker^$image
+
+! YAMM (https://yet-another-mail-merge.com/)
+yamm-track.appspot^$all
+
+! Cirrus Insight CRM (cirrusinsight.com)
+tracking.cirrusinsight.com^$all
+
+! Mailtrack (mailtrack.io)
+mltrk.io/pixel^$all
+mailtrack.io^$all
+mailtrack.io/trace^$all
+
+! Marketo (marketo.com)
+toutapp.com^$all
+
+! Litmus (https://litmus.com)
+emltrk.com^$image
+
+! Boomerang (https://www.boomeranggmail.com/)
+mailstat.us/tr^$all
+
+! Close (https://close.io)
+close.io/email_opened^$all
+
+! Outreach (https://outreach.io)
+outrch.com/api/mailings/opened^$all
+
+! Intercom (https://intercom.com)
+via.intercom-mail-.com/o^$all
+
+! NetHunt CRM (https://nethunt.com/)
+nethunt.com/api/v1/track/email^$all
+
+! Superhuman email client (https://superhuman.com/)
+r.superhuman.com^$all
+
+! Returnpath (https://www.validity.com/products/returnpath/)
+returnpath.net/pixel.gif^$image
+
+! Pigeon (https://trypigeon.co/)
+t.mailpgn.com^$image
+
+! Gmass (https://www.gmass.co/)
+track.gmass.co^$all
+x.gmtrack.net^$all
+
+! Mailchimp (https://mailchimp.com)
+list-manage.com/track^$all
+
+! Rebump (https://rebump.com)
+rebump.cc/api/track^$all
+
+! AWS SES
+awstrack.me^$all
+
+! New York times
+nytimes.com/pixel^$image
+
+! ConvertKit
+open.convertkit*.com^$image
+
+! Substack
+email.*.substack.com/o^$image
+
+! Snov.io
+signaldomn.online/track^$image
+
+! ==========
+! How to disable email tracking pixels in Superhuman
+! https://medium.com/@chadloder/how-to-disable-superhumans-email-tracking-pixel-ba4f9ccdf731
+
+! Superhuman "read receipt" tracking pixel
+||media.superhumanapp.com/images/_/*://r.superhuman.com/*.gif$image
+||r.superhuman.com/*.gif$document
+
+! hunter.io email tracking
+! https://mailtracker.hunter.io/articles/how-does-email-tracking-work
+||mltrk.io/pixel/*^$document
+||media.superhumanapp.com/images/_/*://*.mltrk.io/pixel/*^$image
+
+! SendGrid email tracking
+||sendgrid.com/wf/open*^$document
+||sendgrid.net/wf/open*^$document
+||sendgrid.com/trk*^$document
+||ct.sendgrid.net/mpss/o/*.gif^$document
+||media.superhumanapp.com/images/_/*://*.sendgrid.com/wf/open*^$image
+||media.superhumanapp.com/images/_/*://*.sendgrid.net/wf/open*^$image
+||media.superhumanapp.com/images/_/*://*.sendgrid.com/trk*^$image
+||media.superhumanapp.com/images/_/*://*.ct.sendgrid.net/mpss/o/*.gif^$image
+
+! Litmus email tracking
+||emltrk.com^
+||media.superhumanapp.com/images/_/*://*.emltrk.com*^$image
+
+! GMelius email tracking
+||gml.email^
+||media.superhumanapp.com/images/_/*://gml.email*^$image
+
+! HubSpot email tracking
+! https://knowledge.hubspot.com/articles/kcs_article/email-tracking/how-hubspot-email-open-tracking-works
+! TODO: HubSpot can use custom domains which all seem to have a URL structure like:
+! https://example.com/e2t/o/*<random stuff>
+! https://example.com/e2t/c/*<random stuff>
+||t.hubspotemail.net^
+||media.superhumanapp.com/images/_/*://*.t.hubspotemail.net*^$image
+||media.superhumanapp.com/images/_/*://*/e2t/o/*^$image
+
+! DidTheyReadIt.com email tracking
+! This is already blocked in Peter Lowe's list
+||xpostmail.com^
+||media.superhumanapp.com/images/_/*://*.xpostmail.com*^$image
+
+! MixPanel email tracking
+! https://help.mixpanel.com/hc/en-us/articles/115004690106-Track-Email-Open-Rates
+||mixpanel.com/trk*^$document
+||mixpanel.com/track*^$document
+||media.superhumanapp.com/images/_/*://*.mixpanel.com/trk*^$image
+||media.superhumanapp.com/images/_/*://*.mixpanel.com/track*^$image
+
+! Intercom email tracking
+||intercom-mail.com/q/*^$document
+||media.superhumanapp.com/images/_/*://*.intercom-mail.com/q/*^$image
+
+! YesWare email tracking
+||yesware.com/trk*^$document
+||yesware.com/t/*^$document
+||media.superhumanapp.com/images/_/*://*.yesware.com/trk*^$image
+||media.superhumanapp.com/images/_/*://*.yesware.com/t/*^$image
+
+! FullContact email tracking
+||fullcontact.com/wf/open*^$document
+||media.superhumanapp.com/images/_/*://*.fullcontact.com/wf/open*^$image
+
+! MailChimp email tracking
+! e.g. https://media.superhumanapp.com/images/_/https://somehost.us12.list-manage.com/track/open.php?u=3404fd5d424e4db51a22d69b5&id=7412ec3feb&e=9622cfce7b
+||list-manage.com/track*^$document
+||media.superhumanapp.com/images/_/*://*.list-manage.com/track/*^$image
+
+! Magento email tracking
+||magento.com/trk*^$document
+||magento.com/wf/open*^$document
+||media.superhumanapp.com/images/_/*://*.magento.com/trk*^$image
+||media.superhumanapp.com/images/_/*://*.magento.com/wf/open*^$image
+
+! Marketo email tracking
+! https://nation.marketo.com/docs/DOC-1190
+||marketo.com/trk*^$document
+||media.superhumanapp.com/images/_/*://*.marketo.com/trk*^$image
+
+! Insightly email tracking
+! https://support.insight.ly/hc/en-us/articles/360004027674-How-to-enable-or-disable-email-tracking
+||insgly.net/api/trk*^$document
+||media.superhumanapp.com/images/_/*://*.insgly.net/api/trk*^$image
+
+! SalesLoft email tracking
+! https://support.salesloft.com/hc/en-us/articles/360027259111-Email-FAQ#How_Are_Opens_Clicks_and_Replies_Tracked
+||salesloft.com/email_trackers/*^$document
+||media.superhumanapp.com/images/_/*://*.salesloft.com/email_trackers/*^$image
+
+! MixMax email tracking
+! https://mixmax.com/resources/track_email/
+||mixmax.com/api/track/*^$document
+||media.superhumanapp.com/images/_/*://*.mixmax.com/api/track/*^$image
+
+! SalesHandy email tracking
+! https://www.saleshandy.com/email-tracking/
+||saleshandy.com/web/email/countopened/*^$document
+||media.superhumanapp.com/images/_/*://*.saleshandy.com/web/email/countopened/*^$image
+
+! PipeDrive "read receipt" tracking pixel
+! https://support.pipedrive.com/hc/en-us/articles/115005541949-Email-Tracking
+! PipeDrive sometimes uses Nylas API for open tracking
+||api.nylas.com/open/*^$document
+||media.superhumanapp.com/images/_/*://api.nylas.com/open/*^$image
+
+! PipeDrive also seems to use sendgrid-style tracking
+||email.pipedrive.com/wf/open*^$document
+||media.superhumanapp.com/images/_/*://email.pipedrive.com/wf/open*^$image
+
+! ConstantContact email tracking
+||rs6.net/on.jsp*^$document
+||media.superhumanapp.com/images/_/*://*.rs6.net/on.jsp*^$image
+
+! MandrillApp open tracking
+! https://mandrill.zendesk.com/hc/en-us/articles/205582907-How-does-open-tracking-work-
+||mandrillapp.com/track/open.php*^$document
+||mandrill.*/track/open.php*^$document
+||media.superhumanapp.com/images/_/*://mandrillapp.com/track/open.php*^$image
+||media.superhumanapp.com/images/_/*://mandrill.*/track/open.php*^$image
+
+! Oracle Eloqua email tracking
+! https://docs.oracle.com/cloud/latest/marketingcs_gs/OMCAA/Help/Emails/CalculatingEmailOpens.htm
+! https://media.superhumanapp.com/images/_/https://s1259914507.t.en25.com/e/FooterImages/FooterImage1?elq=34089dc840e54f10ba9fb212d35f0cf2&siteid=1259914507
+||en25.com/e/FooterImages/FooterImage1*^$document
+||t.eloqua.com/e/FooterImages/FooterImage1*^$document
+||media.superhumanapp.com/images/_/*://*.en25.com/e/FooterImages/FooterImage1*^$image
+||media.superhumanapp.com/images/_/*://*.t.eloqua.com/e/FooterImages/FooterImage1*^$image
+
+! A stronger Eloqua block would look like this, because hostname is unpredictable
+!||media.superhumanapp.com/images/_/*://*/e/FooterImages/FooterImage1*^$image
+
+! Google email marketing tracking pixel
+||www.google.com/appserve/mkt/img/*.gif^$document
+||media.superhumanapp.com/images/_/*://www.google.com/appserve/mkt/img/*.gif^$image
+
+! Adobe audience manager (demdex)
+! demdex.net is already blocked with Peter's list
+||media.superhumanapp.com/images/_/*://*.demdex.net/*^$image
+
+! DoubleClick tracker (already blocked in uBlock origin, now block Superhuman version)
+||media.superhumanapp.com/images/_/^$image
+
+! Not sure what this tracker is, but saw it in the wild
+||is-tracking-pixel-api-prod.appspot.com/api/*^$document
+||media.superhumanapp.com/images/_/https://is-tracking-pixel-api-prod.appspot.com/api/*^$image
+
+! vtiger sales CRM tracking
+||od2.vtiger.com/shorturl.php*^$document
+||media.superhumanapp.com/images/_/https://*.od2.vtiger.com/shorturl.php*^$image
+
+! Pete's list already blocks pstmrk.it
+||media.superhumanapp.com/images/_/*://*.pstmrk.it/*^$image
+
+! Generic 1x1 pixel css selectors below 👇
+
+! height: 0|1, width: 0|1 in style attribute in any order
+##img[style*="height: 0"][style*="width: 0"]
+##img[style*="height: 1px"][style*="width: 1px"]
+
+! height=0|1 width=0|1 attributes
+##img[height^="0"][width^="0"]
+##img[height="1"][width="1"]
+##img[height="1px"][width="1px"]
+
